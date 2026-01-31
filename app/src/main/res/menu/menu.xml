@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/on_sound"
+        android:title="@string/on"
+        android:icon="@drawable/sound_on"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/off_sound"
+        android:title="@string/off"
+        android:icon="@drawable/sound_off"
+        app:showAsAction="ifRoom"/>
+
+</menu>

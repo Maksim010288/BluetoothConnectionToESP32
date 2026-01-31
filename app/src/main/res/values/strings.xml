@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyBluetooth</string>
+    <string name="connected">Connected</string>
+    <string name="on_song">Включити звук</string>
+    <string name="off_song">Виключити звук</string>
+    <string name="hello">hello</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="data">Data</string>
+    <string name="temperature">temperature</string>
+</resources>
