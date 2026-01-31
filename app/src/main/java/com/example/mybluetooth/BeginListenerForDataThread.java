@@ -57,11 +57,11 @@ public class BeginListenerForDataThread extends Thread {
 
     }
 
-    public String getTemperature() {
+    public String getTemperature() throws Exception {
         return temperature.substring(0,4);
     }
 
-    public String getHumidity() {
+    public String getHumidity() throws Exception {
         return humidity.substring(8,13);
     }
 }

@@ -46,7 +46,7 @@ public class ConnectedThread extends Thread {
                     new BeginListenerForDataThread(bluetoothSocket, inputStream, MY_UUID);
             beginListenerForDataThread.start();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Log.e("error", e.toString());
         }
     }
 
@@ -69,11 +69,11 @@ public class ConnectedThread extends Thread {
        beginListenerForDataThread.sendData(message);
     }
 
-    public String getTemperature() {
+    public String getTemperature() throws Exception {
         return beginListenerForDataThread.getTemperature();
     }
 
-    public String getHumidity() {
+    public String getHumidity() throws Exception {
         return beginListenerForDataThread.getHumidity();
     }
 }

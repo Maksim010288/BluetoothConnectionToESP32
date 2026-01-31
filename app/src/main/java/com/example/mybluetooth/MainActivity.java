@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -91,20 +93,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateTextView() {
-        new CountDownTimer(3000, 5000) {
+        try {
 
-            @Override
-            public void onFinish() {
-                tempDate = "t: " + connectedThread.getTemperature() + "°" + " C";
-                humDate = "v: " + connectedThread.getHumidity() + " %";
-                temperature.setText(tempDate);
-                humidity.setText(humDate);
-                start();
-            }
+            new CountDownTimer(3000, 5000) {
 
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-        }.start();
+                @Override
+                public void onFinish() {
+                    try {
+                        tempDate = "t: " + connectedThread.getTemperature() + "°" + " C";
+                        humDate = "v: " + connectedThread.getHumidity() + " %";
+                        temperature.setText(tempDate);
+                        humidity.setText(humDate);
+                        start();
+                    } catch (Exception e) {
+                        toastMessage("Немає підключення до обладнання");
+
+                    }
+                }
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+                }
+            }.start();
+        }catch (Exception e){
+            Log.e("not connection", e.toString());
+        }
+    }
+
+    private void toastMessage(String message){
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
