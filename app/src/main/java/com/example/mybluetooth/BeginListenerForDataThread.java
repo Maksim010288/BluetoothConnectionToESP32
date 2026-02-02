@@ -10,9 +10,9 @@ import java.util.UUID;
 
 public class BeginListenerForDataThread extends Thread {
     private BluetoothSocket bluetoothSocket;
-     private InputStream inputStream;
+    private InputStream inputStream;
     private OutputStream outputStream;
-    private String receiverMessage, temperature, humidity;
+    private String receiverMessage, temperature, humidity, movement;
     private byte[] buffer;
     private UUID MY_UUID;
 
@@ -40,9 +40,13 @@ public class BeginListenerForDataThread extends Thread {
                     receiverMessage = new String(buffer, 0, bytes);
                     temperature = receiverMessage;
                     humidity = receiverMessage;
+                    movement = receiverMessage;
+                    // Log.e("movement", getMovement());
                 }
             } catch (IOException e) {
                 Log.i("ligament", "the ligament is torn");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -58,10 +62,14 @@ public class BeginListenerForDataThread extends Thread {
     }
 
     public String getTemperature() throws Exception {
-        return temperature.substring(0,4);
+        return temperature.substring(0, 4);
     }
 
     public String getHumidity() throws Exception {
-        return humidity.substring(8,13);
+        return humidity.substring(8, 13);
+    }
+
+    public String getMovement() throws Exception {
+        return movement.substring(16, 20).trim();
     }
 }

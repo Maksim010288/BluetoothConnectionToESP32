@@ -1,15 +1,19 @@
 package com.example.mybluetooth;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresPermission;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -20,6 +24,7 @@ public class ConnectedThread extends Thread {
     private BluetoothSocket bluetoothSocket;
     private BeginListenerForDataThread beginListenerForDataThread;
     private InputStream inputStream;
+    private List<String> deviceList = new ArrayList<>();
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
@@ -60,13 +65,14 @@ public class ConnectedThread extends Thread {
         for (BluetoothDevice device : pairedDevice) {
             if (device.getName().equals(deviceName)) {
                 targetDevice = device;
+
             }
         }
         return targetDevice;
     }
 
     public void sendData(String message) {
-       beginListenerForDataThread.sendData(message);
+        beginListenerForDataThread.sendData(message);
     }
 
     public String getTemperature() throws Exception {
@@ -76,4 +82,16 @@ public class ConnectedThread extends Thread {
     public String getHumidity() throws Exception {
         return beginListenerForDataThread.getHumidity();
     }
+
+    @SuppressLint("ResourceAsColor")
+    public String getMovement() throws Exception {
+        return beginListenerForDataThread.getMovement();
+    }
+
+    public void checkConnected(MainActivity activity, String message) {
+        if (bluetoothSocket.isConnected()) {
+            Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
+        }
+    }
 }
+
