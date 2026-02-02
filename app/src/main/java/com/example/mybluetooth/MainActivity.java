@@ -108,13 +108,18 @@ public class MainActivity extends AppCompatActivity {
     @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.on_sound) {
-            sendData("on");
+        try {
+            if (item.getItemId() == R.id.on_sound) {
+                sendData("on");
+            }
+            if (item.getItemId() == R.id.off_sound) {
+                sendData("off");
+            }
+        }catch (Exception e){
+            toastMessage("Not connection to device");
         }
-        if (item.getItemId() == R.id.off_sound) {
-            sendData("off");
-        }
-        return super.onOptionsItemSelected(item);
+            return super.onOptionsItemSelected(item);
+
     }
 
     @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
